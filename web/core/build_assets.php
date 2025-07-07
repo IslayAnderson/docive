@@ -2,9 +2,27 @@
 
 use ScssPhp\ScssPhp\Compiler;
 
-$compiler = new Compiler();
-$compiler->setImportPaths(__DIR__ . '/../src/scss/');
-file_put_contents(__DIR__ . '/../src/css/style.css', $compiler->compileFile(__DIR__ . '/../src/scss/style.scss')->getCss());
+$local_scss = glob(__DIR__ . '/../src/scss/**.scss');
+$scss_combined = '';
+foreach ($local_scss as $file) {
+    $scss_combined .= file_get_contents($file);
+}
+
+$style_checksum_generated = md5($scss_combined);
+
+if (!file_exists(__DIR__ . '/../src/scss/checksum')) {
+    $style_checksum = '';
+} else {
+    $style_checksum = file_get_contents(__DIR__ . '/../src/scss/checksum');
+}
+
+if ($style_checksum != $style_checksum_generated) {
+    file_put_contents(__DIR__ . '/../src/scss/checksum', $style_checksum_generated);
+
+    $compiler = new Compiler();
+    $compiler->setImportPaths(__DIR__ . '/../src/scss/');
+    file_put_contents(__DIR__ . '/../src/css/style.css', $compiler->compileFile(__DIR__ . '/../src/scss/style.scss')->getCss());
+}
 
 
 $dist_css = glob(__DIR__ . '/../node_modules/materialize-css/dist/css/*.css');
