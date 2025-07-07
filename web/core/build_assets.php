@@ -1,4 +1,12 @@
 <?php
+
+use ScssPhp\ScssPhp\Compiler;
+
+$compiler = new Compiler();
+$compiler->setImportPaths(__DIR__ . '/../src/scss/');
+file_put_contents(__DIR__ . '/../src/css/style.css', $compiler->compileFile(__DIR__ . '/../src/scss/style.scss')->getCss());
+
+
 $dist_css = glob(__DIR__ . '/../node_modules/materialize-css/dist/css/*.css');
 $dist_js = glob(__DIR__ . '/../node_modules/materialize-css/dist/js/*.js');
 
@@ -8,11 +16,11 @@ $local_js = glob(__DIR__ . '/../src/js/*.js');
 if (!array_search('materialize', $local_css) && !array_search('materialize', $local_js) != 0) {
     foreach ($dist_css as $file) {
         $file_split = explode('/', $file);
-        copy($file, __DIR__ . '/../src/css/' . $file_split[count($file_split)-1]);
+        copy($file, __DIR__ . '/../src/css/' . $file_split[count($file_split) - 1]);
     }
     foreach ($dist_js as $file) {
         $file_split = explode('/', $file);
-        copy($file, __DIR__ . '/../src/js/' . $file_split[count($file_split)-1]);
+        copy($file, __DIR__ . '/../src/js/' . $file_split[count($file_split) - 1]);
     }
 }
 
