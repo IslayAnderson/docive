@@ -1,0 +1,19 @@
+.o-progress {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.o-progress-bar {
+  height: 10px;
+  width: 100%;
+  background: $columbia-blue;
+  margin-bottom: 10px;
+
+  &.current {
+    background: $sky-blue;
+  }
+}

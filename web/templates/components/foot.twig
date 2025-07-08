@@ -1,10 +1,70 @@
-<div class="footer">
-    <div class="progress">
-
+{% set progress = [
+    {
+        stage:1,
+        title:'Index',
+        current: true
+    },
+    {
+        stage:2,
+        title:'Document Type'
+    },
+    {
+        stage:3,
+        title:'Document size'
+    },
+    {
+        stage:4,
+        title:'Scanner settings'
+    },
+    {
+        stage:5,
+        title:'Scan preview'
+    },
+    {
+        stage:6,
+        title:'Document process preview'
+    },
+    {
+        stage:7,
+        title:'Results'
+    }
+] %}
+<div class="c-footer">
+    <div class="o-progress">
+        {% for stage in progress %}
+            <div class="o-progress-bar o-progress-bar-{{ stage.stage }}{{ stage.current ? ' current': null }}"
+                 title="{{ stage.title }}"></div>
+        {% endfor %}
     </div>
-    <div class="footer__inner">
-        <a href="#back" class="">Back</a>
-        <a href="#next" class="button">Next</a>
+    <div class="c-footer__inner">
+        <div class="c-footer__inner__column-one">
+            <div class="o-button__back" role="button">
+                <div class="o-button__back__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="#363636"
+                              d="M16 16v4l8-8-8-8v4h-8.929c-9.059 0-7.134 9.521-6.334 11.418.788-2.445 2.464-3.418 5.371-3.418h9.892z"/>
+                    </svg>
+                </div>
+                <div class="o-button__back__context">
+                    <a href="#">Back</a>
+                </div>
+            </div>
+        </div>
+        <div class="c-footer__inner__column-two"></div>
+        <div class="c-footer__inner__column-three">
+            <div class="o-button__next" role="button">
+                <div class="o-button__next__context">
+                    <a href="#">Next</a>
+                </div>
+                <div class="o-button__next__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="#363636"
+                              d="M16 16v4l8-8-8-8v4h-8.929c-9.059 0-7.134 9.521-6.334 11.418.788-2.445 2.464-3.418 5.371-3.418h9.892z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 </div>
