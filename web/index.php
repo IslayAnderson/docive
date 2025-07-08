@@ -17,6 +17,6 @@ if (empty($path) || $path === '/' || !file_exists(__DIR__ . '/templates/pages' .
 $head = $twig->load('/components/head.twig');
 $template = $twig->load('/pages/' . $path . '.twig');
 $foot = $twig->load('/components/foot.twig');
-echo $head->render(['css' => $GLOBALS['css'], 'title' => "hello world"]);
+echo $head->render(['css' => $GLOBALS['css'], 'title' => "Docive"]);
 echo $template->render(['test' => "test"]);
 echo $foot->render(['js' => $GLOBALS['js']]);

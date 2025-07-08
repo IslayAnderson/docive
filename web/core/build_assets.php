@@ -24,9 +24,21 @@ if ($style_checksum != $style_checksum_generated) {
     file_put_contents(__DIR__ . '/../src/css/style.css', $compiler->compileFile(__DIR__ . '/../src/scss/style.scss')->getCss());
 }
 
+$css_list = [
+    glob(__DIR__ . '/../node_modules/materialize-css/dist/css/*.css')
+];
+$js_list = [
+    glob(__DIR__ . '/../node_modules/materialize-css/dist/js/*.js')
+];
+$dist_js = [];
+$dist_css = [];
 
-$dist_css = glob(__DIR__ . '/../node_modules/materialize-css/dist/css/*.css');
-$dist_js = glob(__DIR__ . '/../node_modules/materialize-css/dist/js/*.js');
+foreach ($css_list as $file) {
+    array_merge($dist_css, $file);
+}
+foreach ($js_list as $file) {
+    array_merge($dist_js, $file);
+}
 
 $local_css = glob(__DIR__ . '/../src/css/*.css');
 $local_js = glob(__DIR__ . '/../src/js/*.js');
