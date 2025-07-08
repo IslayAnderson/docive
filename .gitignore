@@ -3,3 +3,5 @@
 /web/compilation_cache
 materialize.*
 .idea
+/web/src/scss/checksum
+/web/src/css/style.css
