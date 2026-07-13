@@ -19,8 +19,17 @@ if ($path === 'preview-scan') {
             exit;
         } catch (\RuntimeException $e) {
             http_response_code(500);
+            echo $e->getMessage();
             exit;
         }
+    }
+    if (isset($_GET['debug'])) {
+        header('Content-Type: text/plain');
+        echo "session_id: " . session_id() . "\n";
+        echo "pages: " . var_export($pages, true) . "\n";
+        echo "file: " . var_export($file, true) . "\n";
+        echo "file_exists: " . var_export($file ? file_exists($file) : null, true) . "\n";
+        exit;
     }
     http_response_code(404);
     exit;
