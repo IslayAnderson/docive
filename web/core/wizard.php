@@ -104,7 +104,9 @@ function wizard_run_scan(string $modeId, int $resolution): string
     if ($exitCode !== 0) {
         throw new RuntimeException(implode("\n", $outputLines));
     }
-    return trim(end($outputLines));
+    $lastLine = end($outputLines);
+    $segments = preg_split('/[\r\n]+/', $lastLine, -1, PREG_SPLIT_NO_EMPTY);
+    return trim(end($segments));
 }
 
 function wizard_pdf_preview_image(string $pdfPath): string

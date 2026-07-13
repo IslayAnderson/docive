@@ -30,6 +30,6 @@ if [ -z "$DEVICE" ]; then
     exit 1
 fi
 
-scanimage -d "$DEVICE" --progress --resolution "$RESOLUTION" --mode "$MODE" -x 210 -y 297 | pnmtops -imagewidth 11.3 -imageheight 11.7 -nocenter | ps2pdf - "$OUTPUT"
+scanimage -d "$DEVICE" --resolution "$RESOLUTION" --mode "$MODE" -x 210 -y 297 | pnmtops -imagewidth 11.3 -imageheight 11.7 -nocenter | ps2pdf - "$OUTPUT"
 
 echo "$OUTPUT"
