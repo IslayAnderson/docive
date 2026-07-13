@@ -69,7 +69,7 @@ for i in \$(seq 1 30); do
     sleep 1
 done
 
-exec google-chrome-stable --kiosk --start-fullscreen --window-position=0,0 --window-size="\${WIDTH:-1920},\${HEIGHT:-1080}" --noerrdialogs --disable-infobars --no-first-run --disable-session-crashed-bubble --disable-translate "$APP_URL"
+exec google-chrome-stable --kiosk --start-fullscreen --window-position=0,0 --window-size="\${WIDTH:-1920},\${HEIGHT:-1080}" --force-device-scale-factor=1 --ozone-platform=x11 --noerrdialogs --disable-infobars --no-first-run --disable-session-crashed-bubble --disable-translate "$APP_URL"
 EOF
 chmod +x "$KIOSK_HOME/.xinitrc"
 chown "$KIOSK_USER:$KIOSK_USER" "$KIOSK_HOME/.bash_profile" "$KIOSK_HOME/.xinitrc"
