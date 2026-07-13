@@ -21,6 +21,15 @@ if [ -z "$OUTPUT" ]; then
     OUTPUT="$SCAN_DIR/scan-$(date +%Y%m%d-%H%M%S).pdf"
 fi
 
-scanimage -d '04a9:18a2' --progress --resolution "$RESOLUTION" --mode "$MODE" -x 210 -y 297 | pnmtops -imagewidth 11.3 -imageheight 11.7 -nocenter | ps2pdf - "$OUTPUT"
+DEVICE_LINE="$(scanimage -L | grep '^device ' | head -1)"
+DEVICE="${DEVICE_LINE#*\`}"
+DEVICE="${DEVICE%%\'*}"
+
+if [ -z "$DEVICE" ]; then
+    echo "No scanner detected (scanimage -L found nothing)" >&2
+    exit 1
+fi
+
+scanimage -d "$DEVICE" --progress --resolution "$RESOLUTION" --mode "$MODE" -x 210 -y 297 | pnmtops -imagewidth 11.3 -imageheight 11.7 -nocenter | ps2pdf - "$OUTPUT"
 
 echo "$OUTPUT"
