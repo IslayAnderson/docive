@@ -12,9 +12,15 @@ if ($path === 'preview-scan') {
     $pages = $_SESSION['wizard']['scan-preview']['scanned_pages'] ?? [];
     $file = end($pages) ?: null;
     if ($file && file_exists($file)) {
-        header('Content-Type: application/pdf');
-        readfile($file);
-        exit;
+        try {
+            $image = wizard_pdf_preview_image($file);
+            header('Content-Type: image/png');
+            readfile($image);
+            exit;
+        } catch (\RuntimeException $e) {
+            http_response_code(500);
+            exit;
+        }
     }
     http_response_code(404);
     exit;

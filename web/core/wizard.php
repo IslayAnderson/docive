@@ -107,6 +107,21 @@ function wizard_run_scan(string $modeId, int $resolution): string
     return trim(end($outputLines));
 }
 
+function wizard_pdf_preview_image(string $pdfPath): string
+{
+    $output = sys_get_temp_dir() . '/docive-preview-' . md5($pdfPath) . '.png';
+    $command = sprintf(
+        'gs -dBATCH -dNOPAUSE -q -sDEVICE=png16m -r100 -dFirstPage=1 -dLastPage=1 -sOutputFile=%s %s 2>&1',
+        escapeshellarg($output),
+        escapeshellarg($pdfPath)
+    );
+    exec($command, $outputLines, $exitCode);
+    if ($exitCode !== 0) {
+        throw new RuntimeException(implode("\n", $outputLines));
+    }
+    return $output;
+}
+
 function wizard_merge_pdfs(array $files): string
 {
     if (count($files) === 1) {

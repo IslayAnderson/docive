@@ -6,7 +6,7 @@
         {% endif %}
         {% if selected.scanned_pages %}
             <p>{{ selected.scanned_pages|length }} page{{ selected.scanned_pages|length > 1 ? 's' : '' }} scanned.</p>
-            <embed src="/preview-scan" type="application/pdf" class="o-scan-preview" />
+            <img src="/preview-scan" class="o-scan-preview" alt="Scan preview" />
             <div class="o-scan-actions">
                 <button type="submit" name="action" value="scan" class="o-scan-button">Scan Another Page</button>
                 <button type="submit" name="action" value="rescan" class="o-scan-button o-scan-button--secondary">Rescan This Page</button>
