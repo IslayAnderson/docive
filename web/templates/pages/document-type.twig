@@ -4,11 +4,16 @@
         <div class="o-card-grid">
             {% for type in document_types %}
                 <label class="o-card{{ selected.document_type == type ? ' is-selected' : '' }}">
-                    <input type="radio" name="document_type" value="{{ type }}" required
+                    <input type="radio" name="document_type" value="{{ type }}"
                            {{ selected.document_type == type ? 'checked' : '' }}>
                     <span class="o-card__label">{{ type }}</span>
                 </label>
             {% endfor %}
+        </div>
+        <div class="o-form-row">
+            <label for="document_type_custom">Or type a new category</label>
+            <input type="text" name="document_type_custom" id="document_type_custom" placeholder="e.g. Warranty"
+                   value="{{ selected.document_type is defined and selected.document_type not in document_types ? selected.document_type : '' }}">
         </div>
     </div>
 </div>

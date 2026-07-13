@@ -77,6 +77,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['wizard'][$stage['slug']][$key] = $value;
         }
 
+        if ($stage['slug'] === 'document-type' && trim($_POST['document_type_custom'] ?? '') !== '') {
+            $_SESSION['wizard']['document-type']['document_type'] = trim($_POST['document_type_custom']);
+        }
+
         $requirementMet = empty($stage['requires']) || !empty($_SESSION['wizard'][$stage['slug']][$stage['requires']]);
         if ($requirementMet && $next) {
             header('Location: ' . wizard_stage_url($next));
