@@ -37,6 +37,15 @@ if [ -n "$REPO_PARENT_GROUP" ] && getent group "$REPO_PARENT_GROUP" &>/dev/null;
     usermod -aG "$REPO_PARENT_GROUP" "$KIOSK_USER"
 fi
 
+# docive.service runs as $KIOSK_USER, which only has group access to a repo
+# owned by whoever ran git clone - grant it write access to the specific
+# directories build_assets.php generates into at runtime.
+for dir in "$WEB_ROOT/src/css" "$WEB_ROOT/src/js" "$WEB_ROOT/src/scss"; do
+    mkdir -p "$dir"
+    [ -n "$REPO_PARENT_GROUP" ] && chgrp "$REPO_PARENT_GROUP" "$dir"
+    chmod g+ws "$dir"
+done
+
 mkdir -p /etc/systemd/system/getty@tty1.service.d
 cat > /etc/systemd/system/getty@tty1.service.d/autologin.conf <<EOF
 [Service]
