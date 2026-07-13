@@ -93,7 +93,7 @@ function wizard_sane_mode(string $id): string
 
 function wizard_run_scan(string $modeId, int $resolution): string
 {
-    $script = __DIR__ . '/../../system/scanner.sh';
+    $script = realpath(__DIR__ . '/../../system/scanner.sh');
     $command = sprintf(
         'bash %s --mode %s --resolution %d 2>&1',
         escapeshellarg($script),
