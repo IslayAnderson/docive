@@ -13,7 +13,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 apt-get update
-apt-get install -y cifs-utils sane-utils netpbm ghostscript
+apt-get install -y cifs-utils sane-utils netpbm ghostscript php-cli composer npm
 
 mkdir -p "$MOUNT_POINT"
 
@@ -41,6 +41,15 @@ fi
 mount -a
 
 chmod +x "$(dirname "$0")/scanner.sh"
+
+WEB_DIR="$(dirname "$0")/../web"
+sudo -u "$REAL_USER" composer install --no-dev --optimize-autoloader --working-dir="$WEB_DIR"
+sudo -u "$REAL_USER" npm install --prefix "$WEB_DIR"
+
+if [ ! -f "$WEB_DIR/core/config.php" ]; then
+    sudo -u "$REAL_USER" cp "$WEB_DIR/core/config.example.php" "$WEB_DIR/core/config.php"
+    echo "Created web/core/config.php from the example — edit it with your real Paperless API token before scanning."
+fi
 
 echo "Done. /mnt/paperless-ingest contents:"
 ls -la "$MOUNT_POINT"
