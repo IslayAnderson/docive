@@ -60,12 +60,16 @@ xset s noblank
 OUTPUT=\$(xrandr | awk '/ connected/{print \$1; exit}')
 [ -n "\$OUTPUT" ] && xrandr --output "\$OUTPUT" --auto
 
+RESOLUTION=\$(xrandr | awk '/\*/{print \$1; exit}')
+WIDTH="\${RESOLUTION%x*}"
+HEIGHT="\${RESOLUTION#*x}"
+
 for i in \$(seq 1 30); do
     curl -s -o /dev/null "$APP_URL" && break
     sleep 1
 done
 
-exec google-chrome-stable --kiosk --noerrdialogs --disable-infobars --no-first-run --disable-session-crashed-bubble --disable-translate "$APP_URL"
+exec google-chrome-stable --kiosk --start-fullscreen --window-position=0,0 --window-size="\${WIDTH:-1920},\${HEIGHT:-1080}" --noerrdialogs --disable-infobars --no-first-run --disable-session-crashed-bubble --disable-translate "$APP_URL"
 EOF
 chmod +x "$KIOSK_HOME/.xinitrc"
 chown "$KIOSK_USER:$KIOSK_USER" "$KIOSK_HOME/.bash_profile" "$KIOSK_HOME/.xinitrc"
