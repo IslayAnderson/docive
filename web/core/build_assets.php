@@ -23,11 +23,11 @@ if (!file_exists(__DIR__ . '/../src/scss/checksum')) {
 }
 
 if ($style_checksum != $style_checksum_generated) {
-    file_put_contents(__DIR__ . '/../src/scss/checksum', $style_checksum_generated);
-
     $compiler = new Compiler();
     $compiler->setImportPaths(__DIR__ . '/../src/scss/');
     file_put_contents(__DIR__ . '/../src/css/style.css', $compiler->compileFile(__DIR__ . '/../src/scss/style.scss')->getCss());
+
+    file_put_contents(__DIR__ . '/../src/scss/checksum', $style_checksum_generated);
 }
 
 $css_list = [
