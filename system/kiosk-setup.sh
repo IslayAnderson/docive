@@ -57,6 +57,9 @@ xset -dpms
 xset s off
 xset s noblank
 
+OUTPUT=\$(xrandr | awk '/ connected/{print \$1; exit}')
+[ -n "\$OUTPUT" ] && xrandr --output "\$OUTPUT" --auto
+
 for i in \$(seq 1 30); do
     curl -s -o /dev/null "$APP_URL" && break
     sleep 1
