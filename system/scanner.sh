@@ -16,8 +16,8 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [ -z "$OUTPUT" ]; then
-    SCAN_DIR="$SCRIPT_DIR/../scans"
-    mkdir -p "$SCAN_DIR"
+    mkdir -p "$SCRIPT_DIR/../scans"
+    SCAN_DIR="$(cd "$SCRIPT_DIR/../scans" && pwd)"
     OUTPUT="$SCAN_DIR/scan-$(date +%Y%m%d-%H%M%S).pdf"
 fi
 
