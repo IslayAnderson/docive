@@ -1,0 +1,11 @@
+<div class="c-content">
+    <div class="c-stage">
+        <h1>Results</h1>
+        {% if document_id %}
+            <p class="o-success">Your document has been sent to Paperless-ngx and is being processed.</p>
+        {% else %}
+            <p>No document was submitted this session.</p>
+        {% endif %}
+        <p>Press Start Over to scan another document.</p>
+    </div>
+</div>

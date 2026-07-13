@@ -1,0 +1,24 @@
+<div class="c-content">
+    <div class="c-stage">
+        <h1>Scan Preview</h1>
+        {% if scan_error %}
+            <p class="o-error">Scan failed: {{ scan_error }}</p>
+        {% endif %}
+        {% if selected.scanned_pages %}
+            <p>{{ selected.scanned_pages|length }} page{{ selected.scanned_pages|length > 1 ? 's' : '' }} scanned.</p>
+            <embed src="/preview-scan" type="application/pdf" class="o-scan-preview" />
+            <div class="o-scan-actions">
+                <button type="submit" name="action" value="scan" class="o-scan-button">Scan Another Page</button>
+                <button type="submit" name="action" value="rescan" class="o-scan-button o-scan-button--secondary">Rescan This Page</button>
+                {% if selected.scanned_pages|length > 1 %}
+                    <button type="submit" name="action" value="remove-last" class="o-scan-button o-scan-button--secondary">Remove This Page</button>
+                {% endif %}
+            </div>
+        {% else %}
+            <p>Load your document into the scanner, then press Scan to capture the first page.</p>
+            <div class="o-scan-actions">
+                <button type="submit" name="action" value="scan" class="o-scan-button">Scan Document</button>
+            </div>
+        {% endif %}
+    </div>
+</div>

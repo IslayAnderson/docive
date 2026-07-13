@@ -1,0 +1,14 @@
+<div class="c-content">
+    <div class="c-stage">
+        <h1>What type of document is this?</h1>
+        <div class="o-card-grid">
+            {% for type in document_types %}
+                <label class="o-card{{ selected.document_type == type ? ' is-selected' : '' }}">
+                    <input type="radio" name="document_type" value="{{ type }}" required
+                           {{ selected.document_type == type ? 'checked' : '' }}>
+                    <span class="o-card__label">{{ type }}</span>
+                </label>
+            {% endfor %}
+        </div>
+    </div>
+</div>

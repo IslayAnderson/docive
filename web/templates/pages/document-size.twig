@@ -1,0 +1,15 @@
+<div class="c-content">
+    <div class="c-stage">
+        <h1>What size is the document?</h1>
+        <div class="o-card-grid">
+            {% for size in document_sizes %}
+                <label class="o-card{{ selected.document_size == size.id ? ' is-selected' : '' }}">
+                    <input type="radio" name="document_size" value="{{ size.id }}" required
+                           {{ selected.document_size == size.id ? 'checked' : '' }}>
+                    <span class="o-card__label">{{ size.label }}</span>
+                    <span class="o-card__sublabel">{{ size.dims }}</span>
+                </label>
+            {% endfor %}
+        </div>
+    </div>
+</div>

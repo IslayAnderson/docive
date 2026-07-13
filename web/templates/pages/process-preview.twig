@@ -1,0 +1,14 @@
+<div class="c-content">
+    <div class="c-stage">
+        <h1>Document Process Preview</h1>
+        {% if upload_error %}
+            <p class="o-error">Upload to Paperless failed: {{ upload_error }}</p>
+            <p>Go back and try scanning again, or check the Paperless-ngx service.</p>
+        {% elseif document_id %}
+            <p class="o-success">Submitted to Paperless-ngx for OCR and indexing (task {{ document_id }}).</p>
+            <p>Processing happens in the background — check the Paperless web UI in a minute to see the finished document.</p>
+        {% else %}
+            <p>Preparing to upload your scan to Paperless-ngx…</p>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="c-content">
+    <div class="c-stage">
+        <h1>Scanner Settings</h1>
+        <div class="o-form-row">
+            <label for="scan_mode">Colour mode</label>
+            <select name="scan_mode" id="scan_mode" required>
+                <option value="" disabled {{ selected.scan_mode is not defined ? 'selected' : '' }}>Select…</option>
+                {% for mode in scan_modes %}
+                    <option value="{{ mode.id }}" {{ selected.scan_mode == mode.id ? 'selected' : '' }}>{{ mode.label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="o-form-row">
+            <label for="scan_resolution">Resolution (DPI)</label>
+            <select name="scan_resolution" id="scan_resolution" required>
+                <option value="" disabled {{ selected.scan_resolution is not defined ? 'selected' : '' }}>Select…</option>
+                {% for dpi in scan_resolutions %}
+                    <option value="{{ dpi }}" {{ selected.scan_resolution == dpi ? 'selected' : '' }}>{{ dpi }} dpi</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</div>
