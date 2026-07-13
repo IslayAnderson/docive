@@ -56,7 +56,7 @@ systemctl enable getty@tty1.service
 
 cat > "$KIOSK_HOME/.bash_profile" <<'EOF'
 if [ -z "${DISPLAY:-}" ] && [ "$(tty)" = "/dev/tty1" ]; then
-    exec startx -- -nocursor
+    exec startx
 fi
 EOF
 
