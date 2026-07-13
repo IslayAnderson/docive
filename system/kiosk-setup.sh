@@ -30,6 +30,13 @@ for group in scanner plugdev dialout; do
     getent group "$group" &>/dev/null && usermod -aG "$group" "$KIOSK_USER"
 done
 
+# Grant traverse access into the repo's parent directory if it's owned by a
+# restrictive group (e.g. the repo lives inside a regular user's home dir).
+REPO_PARENT_GROUP="$(stat -c '%G' "$(dirname "$REPO_DIR")" 2>/dev/null || true)"
+if [ -n "$REPO_PARENT_GROUP" ] && getent group "$REPO_PARENT_GROUP" &>/dev/null; then
+    usermod -aG "$REPO_PARENT_GROUP" "$KIOSK_USER"
+fi
+
 mkdir -p /etc/systemd/system/getty@tty1.service.d
 cat > /etc/systemd/system/getty@tty1.service.d/autologin.conf <<EOF
 [Service]
@@ -50,7 +57,8 @@ xset -dpms
 xset s off
 xset s noblank
 
-while ! curl -s -o /dev/null "$APP_URL"; do
+for i in \$(seq 1 30); do
+    curl -s -o /dev/null "$APP_URL" && break
     sleep 1
 done
 
