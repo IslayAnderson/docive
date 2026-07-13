@@ -5,3 +5,13 @@ document.querySelectorAll('.o-card input[type="radio"]').forEach(function (input
         });
     });
 });
+
+var wizardForm = document.querySelector('form');
+if (wizardForm) {
+    wizardForm.addEventListener('submit', function () {
+        var overlay = document.getElementById('loading-overlay');
+        if (overlay) {
+            overlay.classList.add('is-visible');
+        }
+    });
+}
